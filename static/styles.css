@@ -31,12 +31,11 @@ a {
 }
 
 .pane {
-    position: absolute;
-    left: 25%;
+    max-width: 800px;
     border: 2px solid;
     border-radius: 25px;
     padding: 5px;
-    margin: 5px;
+    margin: auto;
     border-color: #999999;
 }
 
