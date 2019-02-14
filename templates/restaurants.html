@@ -2,6 +2,20 @@
     <body>
 
         <div>
+            <p><a href="{{ url_for('newRestaurant') }}">Create New Restaurant</a></p><br>
+
+            <div class="flash">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                            <li><strong> {{message}} </strong></li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
             {% for i in restaurants %}
             <div>
                 <span class="name"><p>{{i.name}}</p></span>

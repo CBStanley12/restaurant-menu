@@ -29,6 +29,17 @@ def restaurants():
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants = restaurants)
 
+@app.route('/restaurants/new/', methods=['GET', 'POST'])
+def newRestaurant():
+    if request.method == 'POST':
+        newRestaurant = Restaurant(name = request.form['name'])
+        session.add(newRestaurant)
+        session.commit()
+        flash("New restaurant has been created!")
+        return redirect(url_for('restaurants'))
+    else:
+        return render_template('newrestaurant.html')
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
@@ -59,7 +70,6 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         return render_template('editmenuitem.html', restaurant_id = restaurant_id, menu_id = menu_id, i = editedItem)
         
-
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     itemToDelete = session.query(MenuItem).filter_by(id = menu_id).one()
