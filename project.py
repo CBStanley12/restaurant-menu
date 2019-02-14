@@ -23,11 +23,17 @@ def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id = menu_id).one()
     return jsonify(MenuItem = menuItem.serialize)
 
+#App Routing
+@app.route('/restaurants/')
+def restaurants():
+    restaurants = session.query(Restaurant).all()
+    return render_template('restaurants.html', restaurants = restaurants)
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id = restaurant_id)
-    return render_template('menu.html', restaurant=restaurant, items=items)
+    return render_template('menu.html', restaurant = restaurant, items = items)
 
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
