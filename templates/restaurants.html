@@ -19,7 +19,7 @@
             {% for i in restaurants %}
             <div>
                 <span class="name"><p>{{i.name}}</p></span>
-                <a href="">View Menu</a>
+                <a href="{{ url_for('restaurantMenu', restaurant_id = i.id) }}">View Menu</a>
             </div>
                 
             <div class="editdeletepane">
