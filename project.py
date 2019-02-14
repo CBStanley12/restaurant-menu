@@ -23,8 +23,7 @@ def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id = menu_id).one()
     return jsonify(MenuItem = menuItem.serialize)
 
-#App Routing
-#Restaurants
+#App Routing for Restaurants
 @app.route('/restaurants/')
 def restaurants():
     restaurants = session.query(Restaurant).all()
@@ -54,7 +53,18 @@ def editRestaurant(restaurant_id):
     else:
         return render_template('editrestaurant.html', restaurant_id = restaurant_id, i = editedItem)
 
-#Restaurant Menu Items
+@app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+def deleteRestaurant(restaurant_id):
+    itemToDelete = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    if request.method == 'POST':
+        session.delete(itemToDelete)
+        session.commit()
+        flash("Restaurant has been deleted!")
+        return redirect(url_for('restaurants'))
+    else:
+        return render_template('deleterestaurant.html', restaurant_id = restaurant_id, i = itemToDelete)
+
+#App Routing for Restaurant Menu Items
 @app.route('/restaurants/<int:restaurant_id>/menu/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
