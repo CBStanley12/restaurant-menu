@@ -23,7 +23,7 @@
             </div>
                 
             <div class="editdeletepane">
-                <a href="">Edit</a>
+                <a href="{{ url_for('editRestaurant', restaurant_id = i.id) }}">Edit</a>
                 <a href="">Delete</a>
             </div>
             {% endfor %}
