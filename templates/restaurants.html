@@ -1,0 +1,19 @@
+<html>
+    <body>
+
+        <div>
+            {% for i in restaurants %}
+            <div>
+                <span class="name"><p>{{i.name}}</p></span>
+                <a href="">View Menu</a>
+            </div>
+                
+            <div class="editdeletepane">
+                <a href="">Edit</a>
+                <a href="">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    </body>
+</html>
