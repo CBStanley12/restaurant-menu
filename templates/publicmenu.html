@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{restaurant.name}} Menu{% endblock %}
+
+{% block content %}
+<div class="pane">
+    <div class="header">
+        <h1>{{restaurant.name}}</h1>
+        <h2>{{creator.name}}</h2>
+        <img src="{{creator.picture}}" style="width: 150px; height: 150px;">
+    </div>
+
+    <div class="flash">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li><strong> {{message}} </strong></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-menu" role="tablist">
+                {% for i in items %}
+                <a class="list-group-item list-group-item-action" id="list-{{i.name}}-list" data-toggle="list" href="#list-{{i.name}}" role="tab" aria-controls="{{i.name}}">{{i.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                {% for i in items %}
+                <div class="tab-pane fade" id="list-{{i.name}}" role="tabpanel" aria-labelledby="list-{{i.name}}-list">{{i.description}}{{i.price}}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

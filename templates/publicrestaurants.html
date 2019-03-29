@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Restaurants{% endblock %}
+
+{% block content %}
+<div class="flash col-12 text-center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <span><strong> {{message}} </strong></span>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+<div class="row justify-content-center">
+    {% for i in restaurants %}
+    <div class="col-12 list-group">
+        <li class="list-group-item">{{i.name}}<a href="{{ url_for('restaurantMenu', restaurant_id = i.id) }}" class="btn btn-outline-dark btn-sm">View Menu</a></li>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

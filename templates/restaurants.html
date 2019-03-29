@@ -1,33 +1,38 @@
-<html>
-    <body>
+{% extends "base.html" %}
+{% block title %}Restaurants{% endblock %}
 
-        <div>
-            <p><a href="{{ url_for('newRestaurant') }}">Create New Restaurant</a></p><br>
+{% block content %}
+<div class="col-12 text-right">
+    <a href="{{ url_for('newRestaurant') }}" class="btn btn-outline-dark">Create New Restaurant</a>
+</div>
 
-            <div class="flash">
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul>
-                        {% for message in messages %}
-                            <li><strong> {{message}} </strong></li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-            {% for i in restaurants %}
-            <div>
-                <span class="name"><p>{{i.name}}</p></span>
-                <a href="{{ url_for('restaurantMenu', restaurant_id = i.id) }}">View Menu</a>
-            </div>
-                
-            <div class="editdeletepane">
-                <a href="{{ url_for('editRestaurant', restaurant_id = i.id) }}">Edit</a>
-                <a href="{{ url_for('deleteRestaurant', restaurant_id = i.id) }}">Delete</a>
-            </div>
+<div class="flash col-12 text-center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <span><strong> {{message}} </strong></span>
             {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+<div class="row justify-content-center">
+    {% for i in restaurants %}
+    <div class="col-4 text-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="name card-title">{{i.name}}</h5>
+                <a href="{{ url_for('restaurantMenu', restaurant_id = i.id) }}" class="btn btn-outline-dark btn-sm">View Menu</a>
+                <a href="{{ url_for('editRestaurant', restaurant_id = i.id) }}" class="btn btn-outline-dark btn-sm">Edit</a>
+                <a href="{{ url_for('deleteRestaurant', restaurant_id = i.id) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
         </div>
-
-    </body>
-</html>
+    </div>
+        
+    <div class="editdeletepane">
+        
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
